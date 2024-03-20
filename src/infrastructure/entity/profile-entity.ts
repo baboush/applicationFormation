@@ -8,8 +8,8 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Task } from './Task';
-import { User } from './User';
+import { Task } from './task-entity';
+import { User } from './user-entity';
 
 @Entity()
 export class Profile {

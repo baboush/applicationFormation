@@ -7,7 +7,7 @@ import {
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
-import { Profile } from './Profile';
+import { Profile } from './profile-entity';
 
 @Entity()
 export class Task {

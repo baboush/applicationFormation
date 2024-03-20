@@ -1,4 +1,3 @@
-import { join } from 'path/posix';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -9,7 +8,7 @@ import {
   OneToOne,
   JoinColumn,
 } from 'typeorm';
-import { Profile } from './Profile';
+import { Profile } from './profile-entity';
 
 @Entity('user')
 export class User {
@@ -24,7 +23,6 @@ export class User {
 
   @Column({ default: 'user' })
   role!: string;
-
   @OneToOne(() => Profile, (profile: Profile) => profile.user, {
     cascade: true,
     eager: true,
