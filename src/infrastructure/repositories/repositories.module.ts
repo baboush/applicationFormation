@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
-import { TaskRepositoriesResolver } from './task-repositories/task-repositories.resolver';
 
 @Module({
-  providers: [TaskRepositoriesResolver],
+  providers: [],
 })
 export class RepositoriesModule {}
