@@ -1,4 +1,4 @@
-import { HttpAdapterHost, NestFactory } from '@nestjs/core';
+import { HttpAdapterHost, NestFactory, PartialGraphHost } from '@nestjs/core';
 import { AppModule } from './app.module';
 import {
   FastifyAdapter,

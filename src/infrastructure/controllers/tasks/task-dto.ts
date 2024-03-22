@@ -3,6 +3,9 @@ import { Profile } from 'src/infrastructure/entity/profile-entity';
 
 export class CreateTaskDto {
   @ApiProperty()
+  readonly id: number;
+
+  @ApiProperty()
   readonly title: string;
 
   @ApiProperty()

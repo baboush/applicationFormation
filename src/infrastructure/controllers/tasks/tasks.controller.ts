@@ -1,6 +1,5 @@
 import {
   Controller,
-  Inject,
   Post,
   Body,
   Param,
@@ -9,53 +8,52 @@ import {
   Get,
   Query,
 } from '@nestjs/common';
-import { Observable } from 'rxjs';
 import { TaskControllerAbstract } from 'src/domain/controllers/task-controller.interface';
-import { TaskModel } from 'src/domain/interface/task-model/task-model.interface';
 import { TaskRepository } from 'src/infrastructure/repositories/task-repositories/task.repository';
 import { CreateTaskDto, UpdateTaskDto } from './task-dto';
 import { TaskPresenter } from './task-presenter';
+import { ApiResponse, ApiExtraModels } from '@nestjs/swagger';
 
 @Controller('tasks')
+@ApiExtraModels(TaskPresenter)
 export class TasksController implements TaskControllerAbstract {
-  constructor(
-    @Inject(TaskRepository) readonly taskRepository: TaskRepository,
-  ) {}
+  constructor(readonly taskRepository: TaskRepository) {}
 
   @Post('create')
-  async create(
-    @Body() createTaskDto: CreateTaskDto,
-  ): Observable<CreateTaskDto> {
-    const { title, content, profile } = createTaskDto;
-    await this.taskRepository.createTask({ title, content, profile });
+  async create(@Body() createTaskDto: CreateTaskDto): Promise<void> {
+    const { id, title, content, profile } = createTaskDto;
+    await this.taskRepository.createTask({ id, title, content, profile });
   }
 
   @Put(':id')
-  async update(@Param('id') id: number, @Body() updateTaskDto: UpdateTaskDto) {
+  async update(
+    @Param('id') id: number,
+    @Body() updateTaskDto: UpdateTaskDto,
+  ): Promise<void> {
     const { title, content } = updateTaskDto;
     await this.taskRepository.updateTask(id, { title, content });
   }
 
   @Delete(':id')
-  async delete(@Param('id') id: number): Observable<void> {
+  async delete(@Param('id') id: number): Promise<void> {
     await this.taskRepository.deleteTask(id);
   }
 
+  @ApiResponse({
+    status: 200,
+    description: 'found all task',
+    type: TaskPresenter,
+  })
   @Get('tasks')
-  async findAll(): Observable<TaskPresenter> {
-    const tasks = this.taskRepository.findAllTask();
-    return tasks;
+  async findAll(): Promise<TaskPresenter[]> {
+    const tasks = await this.taskRepository.findAllTask();
+    return tasks.map((task) => new TaskPresenter({ ...task }));
   }
 
-  @Get('task')
-  findOne(@Query('id') id: number): Observable<TaskPresenter> {
-    const { title, content, profile } = this.taskRepository.findOneTask(id);
-
-    return new TaskPresenter({
-      id,
-      title,
-      content,
-      profile,
-    });
+  @Get('task/:id')
+  async findOne(@Query('id') id: number): Promise<TaskPresenter> {
+    const { title, content, profile } =
+      await this.taskRepository.findOneTask(id);
+    return new TaskPresenter({ id, title, content, profile });
   }
 }

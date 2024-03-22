@@ -48,7 +48,7 @@ export class TaskRepository implements TaskRepositoryAbstract {
     return task;
   }
 
-  private toTaskEntity(taskEntity: Task): TaskModel {
+  private toTaskEntity(taskEntity: TaskModel): Task {
     const task: Task = new Task();
     task.id = taskEntity.id;
     task.title = taskEntity.title;

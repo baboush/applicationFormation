@@ -35,12 +35,11 @@ export class LoggerInterceptor implements NestInterceptor {
     if (ipAddr) {
       const list = ipAddr.split(',');
       ip = list[list.length - 1];
-      console.log(ip);
     } else {
-      ip = request.connection.remoteAddress;
+      ip = request.socket.remoteAddress;
     }
-    ip.replace('::fff:', '');
     console.log(ip);
+    ip.replace('::fff:', '');
     return ip;
   }
 }

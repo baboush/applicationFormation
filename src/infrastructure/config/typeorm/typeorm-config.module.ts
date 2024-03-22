@@ -14,11 +14,11 @@ export const getTypeOrmModuleOptions = (
     password: config.getDatabasePassword(),
     database: config.getDatabaseName(),
     entities: [__dirname + './../../**/*.entity{.ts, .js}'],
-    synchronize: false,
+    synchronize: true,
     schema: process.env.DATABASE_SCHEMA,
-    ssl: {
+    /*    ssl: {
       rejectUnauthorized: false,
-    },
+    },*/
   }) as TypeOrmModuleOptions;
 
 @Module({

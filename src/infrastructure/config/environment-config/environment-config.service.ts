@@ -9,24 +9,24 @@ export class EnvironmentConfigService implements DatabaseConfig {
   }
 
   getDatabaseHost(): string {
-    return this.configService.get<string>('DATABASE_HOST');
+    return this.configService.get<string>('localhost');
   }
   getDatabasePort(): number {
-    return this.configService.get<number>('DATABASE_PORT');
+    return this.configService.get<number>('3306');
   }
   getDatabaseUser(): string {
-    return this.configService.get<string>('DATABASE_USER');
+    return this.configService.get<string>('arnaud');
   }
   getDatabasePassword(): string {
-    return this.configService.get<string>('DATABASE_PASSWORD');
+    return this.configService.get<string>('lili26380');
   }
   getDatabaseName(): string {
-    return this.configService.get<string>('DATABASE_NAME');
+    return this.configService.get<string>('test_data');
   }
   getDatabaseSchema(): string {
-    return this.configService.get<string>('DATABASE_SCHEMA');
+    return this.configService.get<string>('');
   }
   getDatabaseSync(): boolean {
-    return this.configService.get<boolean>('DATABASE_SYNC');
+    return this.configService.get<boolean>('true');
   }
 }
